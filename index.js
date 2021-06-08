@@ -2,7 +2,7 @@
  * @Author: 曾星旗 <me@zengxingqi.com>
  * @Date: 2021-06-05 23:05:08
  * @LastEditors: 曾星旗 <me@zengxingqi.com>
- * @LastEditTime: 2021-06-08 18:40:53
+ * @LastEditTime: 2021-06-08 18:47:48
  * @Description: socket 主入口
  * @FilePath: /likesignal/index.js
  */
@@ -57,7 +57,7 @@ function adapterError() {
   console.log("adapter 错误回调");
 }
 
-io.on("connection", connection);
+io.of("/socket.io").on("connection", connection);
 io.of("/").adapter.on("error", adapterError);
 io.listen(3700);
 
