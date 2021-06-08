@@ -1,6 +1,6 @@
 # likesignal
 
-like signal
+技术栈：JavaScript + Redis + NodeJS + PM2 + Socket.IO + CentOS7
 
 ### 一、下载安装依赖
 
@@ -10,6 +10,6 @@ npm install
 
 node index.js
 
-### 三、服务启用
+### 三、线上启用
 
 pm2 start server.json --max-memory-restart 400MB
