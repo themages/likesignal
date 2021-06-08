@@ -2,7 +2,7 @@
  * @Author: 曾星旗 <me@zengxingqi.com>
  * @Date: 2021-06-05 23:05:08
  * @LastEditors: 曾星旗 <me@zengxingqi.com>
- * @LastEditTime: 2021-06-08 18:47:48
+ * @LastEditTime: 2021-06-08 19:30:58
  * @Description: socket 主入口
  * @FilePath: /likesignal/index.js
  */
@@ -14,7 +14,7 @@ const pubClient = redis.createClient("7120", "localhost", {
 });
 const subClient = pubClient.duplicate();
 const io = require("socket.io")({
-  path: "/socket.io",
+  path: "/like",
   transports: ["websocket"],
   serveClient: false,
   pingInterval: 10000,
@@ -22,12 +22,12 @@ const io = require("socket.io")({
   cookie: false,
 });
 io.adapter(redisAdapter({ pubClient, subClient }));
-
+const nameSpaced = io.of("like");
 function connection(client) {
   function join(room) {
     client.join(room);
     pubClient.set(client.id, room);
-    const myRoom = io.sockets.adapter.rooms.get(room);
+    const myRoom = nameSpaced.adapter.rooms.get(room);
     if (myRoom) {
       // 给自己发
       client.emit("joined", room, [...myRoom.keys()]);
@@ -57,7 +57,7 @@ function adapterError() {
   console.log("adapter 错误回调");
 }
 
-io.of("/socket.io").on("connection", connection);
+nameSpaced.on("connection", connection);
 io.of("/").adapter.on("error", adapterError);
 io.listen(3700);
 
