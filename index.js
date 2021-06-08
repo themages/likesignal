@@ -2,7 +2,7 @@
  * @Author: 曾星旗 <me@zengxingqi.com>
  * @Date: 2021-06-05 23:05:08
  * @LastEditors: 曾星旗 <me@zengxingqi.com>
- * @LastEditTime: 2021-06-08 17:03:30
+ * @LastEditTime: 2021-06-08 18:40:53
  * @Description: socket 主入口
  * @FilePath: /likesignal/index.js
  */
@@ -14,7 +14,7 @@ const pubClient = redis.createClient("7120", "localhost", {
 });
 const subClient = pubClient.duplicate();
 const io = require("socket.io")({
-  path: "/",
+  path: "/socket.io",
   transports: ["websocket"],
   serveClient: false,
   pingInterval: 10000,
