@@ -24,8 +24,8 @@ const io = require("socket.io")({
 io.adapter(redisAdapter({ pubClient, subClient }));
 const nameSpaced = io.of("like");
 function connection(client) {
+  client.join(room);
   function join(room) {
-    client.join(room);
     pubClient.set(client.id, room);
     const myRoom = nameSpaced.adapter.rooms.get(room);
     if (myRoom) {
