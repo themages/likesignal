@@ -33,7 +33,7 @@ function connection(client) {
   }
   function getClientRoom(err, room) {
     if (err) return;
-    leave(room);
+    logout(room);
   }
   function disconnect() {
     pubClient.get(client.id, getClientRoom);
