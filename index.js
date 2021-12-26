@@ -25,7 +25,6 @@ io.adapter(redisAdapter({ pubClient, subClient }));
 const nameSpaced = io.of("like");
 function connection(client) {
   function join(room) {
-    pubClient.set(client.id, room);
     const myRoom = nameSpaced.adapter.rooms.get(room);
     if (myRoom) {
       // 给自己发
@@ -48,6 +47,7 @@ function connection(client) {
   }
   function login(room) {
     client.join(room);
+    pubClient.set(client.id, room);
   }
   client.on("login", login);
   client.on("join", join);
