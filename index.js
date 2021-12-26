@@ -25,9 +25,8 @@ io.adapter(redisAdapter({ pubClient, subClient }));
 const nameSpaced = io.of("like");
 function connection(client) {
   function join(room) {
-      // 除自己以外
-      client.to(room).emit("joined", room, client.id);
-    }
+    // 除自己以外
+    client.to(room).emit("joined", room, client.id);
   }
   function leave(room) {
     client.leave(room);
