@@ -29,9 +29,7 @@ function connection(client) {
     client.to(room).emit("joined", room, client.id);
   }
   function leave(room) {
-    client.leave(room);
     client.to(room).emit("leaved", room, client.id);
-    pubClient.del(client.id);
   }
   function getClientRoom(err, room) {
     if (err) return;
@@ -49,6 +47,12 @@ function connection(client) {
       client.emit("online", room, [...myRoom.keys()]);
     }
   }
+  function logout(room) {
+    client.leave(room);
+    client.to(room).emit("logout", room, client.id);
+    pubClient.del(client.id);
+  }
+  client.on("logout", logout);
   client.on("login", login);
   client.on("join", join);
   client.on("leave", leave);
